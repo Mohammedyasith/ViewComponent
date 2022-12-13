@@ -1,0 +1,81 @@
+﻿<style>
+  .master-navbar button {
+    padding: 5px 10px;
+    border: unset;
+    border-radius: 10px;
+    color: #343a40;
+    z-index: 1;
+    background: #e8e8e8;
+    position: relative;
+    font-weight: 500;
+    font-size: 16px;
+    -webkit-box-shadow: 4px 8px 10px -3px rgba(0, 0, 0, 0.27);
+    box-shadow: 4px 8px 10px -3px rgba(0, 0, 0, 0.27);
+    transition: all 250ms;
+    overflow: hidden;
+  }
+
+  .master-navbar button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    border-radius: 20px;
+    background-color: #343a40;
+    z-index: -1;
+    -webkit-box-shadow: 4px 8px 10px -3px rgba(0, 0, 0, 0.27);
+    box-shadow: 4px 8px 10px -3px rgba(0, 0, 0, 0.27);
+    transition: all 250ms
+  }
+
+  .master-navbar button:hover {
+    color: #e8e8e8;
+  }
+
+  .master-navbar button:hover::before {
+    width: 100%;
+  }
+
+  .master-navbar {
+    overflow: overlay;
+    white-space: nowrap;
+    padding-bottom: 20px;
+    position: sticky;
+    top: 0;
+    text-align: center;
+  }
+</style>
+<span class="text-center">
+  <div class="master-navbar sticky-top justify-content-center " style="padding-bottom: 10px;">
+    <nav class="HorizontalBar sidebar-offcanvas  justify-content-center " id="sidebar">
+      <ul class="nav d-sm-flex justify-content-center">
+        @foreach (var item in Model.NavBarItems)
+        {
+          @if (item.ShowNav)
+          {
+            <li class="nav-item  menu-items"><a href='@item.Url' class="nav"><span class="px-2"><button
+                id="@item.Name" class="@item.DisplayText">@item.DisplayText</button></span></a></li>
+          }
+        }
+      </ul>
+    </nav>
+  </div>
+</span>
+<script>
+  var curentPage;
+  var Crpage = window.location.href;
+  if(Crpage.includes("="))
+  {
+    var myArray = Crpage.split("=");
+    curentPage = mmyArray[myArray.length - 1].toLowerCase();
+  }
+  else{
+    var myArray = Crpage.split("/");
+    curentPage = myArray[myArray.length - 1].toLowerCase();
+  }
+  console.log(curentPage);
+  document.getElementById(curentPage).style.backgroundColor = "black";
+  document.getElementById(curentPage).style.color = "white";
+</script>
